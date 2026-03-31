@@ -39,7 +39,7 @@ def generate_text(model, length=10):
 
     return result + "."
 
-# ---------------- NUMEROLOGY ----------------
+# ---------------- NUMEROLOGY CORE ----------------
 def reduce_number(num):
     while num > 9:
         num = sum(int(d) for d in str(num))
@@ -63,14 +63,78 @@ def get_kua(year, gender):
 
     return reduce_number(kua)
 
-# ---------------- NUMEROLOGY PROFILES ----------------
-numerology_profiles = {
-    (6, 4, 3): {
-        "personality": "You are caring, responsible and practical with a creative side.",
-        "career": ["Management", "Design", "Education", "Business"],
-        "love": "You are loyal and supportive. Best compatibility with 2, 6, and 9."
-    }
+# ---------------- AUTO-GENERATED NUMEROLOGY PROFILES ----------------
+traits_mulank = {
+    1: "independent and a natural leader",
+    2: "sensitive and cooperative",
+    3: "creative and expressive",
+    4: "practical and disciplined",
+    5: "adventurous and energetic",
+    6: "caring and responsible",
+    7: "analytical and spiritual",
+    8: "ambitious and powerful",
+    9: "compassionate and wise"
 }
+
+traits_bhagyank = {
+    1: "driven towards success",
+    2: "guided by emotions and harmony",
+    3: "destined for creativity and communication",
+    4: "focused on stability and hard work",
+    5: "full of change and excitement",
+    6: "centered around love and responsibility",
+    7: "inclined towards knowledge and spirituality",
+    8: "oriented towards power and achievement",
+    9: "connected to humanitarian goals"
+}
+
+traits_kua = {
+    1: "with strong leadership energy",
+    2: "with calm and nurturing energy",
+    3: "with growth and creative energy",
+    4: "with stable and practical energy",
+    5: "with dynamic and unpredictable energy",
+    6: "with protective and guiding energy",
+    7: "with introspective and wise energy",
+    8: "with powerful and ambitious energy",
+    9: "with universal and giving energy"
+}
+
+career_fields = {
+    1: ["Leadership", "Entrepreneurship"],
+    2: ["Counseling", "Support roles"],
+    3: ["Arts", "Media"],
+    4: ["Engineering", "Management"],
+    5: ["Travel", "Marketing"],
+    6: ["Healthcare", "Education"],
+    7: ["Research", "Spiritual fields"],
+    8: ["Business", "Finance"],
+    9: ["Social work", "Creative arts"]
+}
+
+love_traits = {
+    1: "need independence in relationships",
+    2: "are romantic and emotional",
+    3: "are fun-loving and expressive",
+    4: "are loyal and stable",
+    5: "seek excitement in love",
+    6: "are caring and committed",
+    7: "are deep and thoughtful",
+    8: "are intense and passionate",
+    9: "are selfless and giving"
+}
+
+# Generate all 729 combinations
+numerology_profiles = {}
+
+for m in range(1, 10):
+    for b in range(1, 10):
+        for k in range(1, 10):
+            numerology_profiles[(m, b, k)] = {
+                "personality": f"You are {traits_mulank[m]}, {traits_bhagyank[b]}, {traits_kua[k]}.",
+                "career": list(set(career_fields[m] + career_fields[b])),
+                "love": f"In love, you {love_traits[m]} and your destiny makes you {love_traits[b]}."
+            }
 
 # ---------------- EXTRA FEATURES ----------------
 lucky_colors = ["Red", "Blue", "Green", "Yellow", "Purple"]
@@ -115,17 +179,10 @@ print("Kua Number:", kua)
 print("\n🧠 ZodiNum Insights 🧠")
 
 key = (mulank, bhagyank, kua)
+profile = numerology_profiles[key]
 
-if key in numerology_profiles:
-    profile = numerology_profiles[key]
-
-    print("👤 Personality:", profile["personality"])
-    print("💼 Career Options:", ", ".join(profile["career"]))
-    print("❤️ Love Compatibility:", profile["love"])
-
-else:
-    print("👤 Personality: You are a unique mix of traits with both emotional and practical qualities.")
-    print("💼 Career Options: Suitable for creative and analytical roles.")
-    print("❤️ Love Compatibility: Best with understanding partners.")
+print("👤 Personality:", profile["personality"])
+print("💼 Career Options:", ", ".join(profile["career"]))
+print("❤️ Love Compatibility:", profile["love"])
 
 print("\n✨ Thank you for using ZodiNum Predictor ✨")
